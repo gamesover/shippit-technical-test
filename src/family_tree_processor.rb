@@ -30,7 +30,7 @@ class FamilyTreeProcessor
       result = send(method, *parts[1..])
       puts result
     else
-      puts 'UNKNOWN_COMMAND'
+      puts 'UNKNOWN COMMAND'
     end
   end
 

@@ -35,7 +35,7 @@ RSpec.describe FamilyTreeProcessor do
     end
 
     it 'handles unknown commands' do
-      expect { processor.process_command_line('UNKNOWN_COMMAND') }.to output("UNKNOWN_COMMAND\n").to_stdout
+      expect { processor.process_command_line('UNKNOWN_COMMAND') }.to output("UNKNOWN COMMAND\n").to_stdout
     end
 
     it 'handles invalid command formats' do

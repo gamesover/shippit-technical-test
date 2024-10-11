@@ -8,7 +8,7 @@ require_relative 'src/family_tree_processor'
 require 'byebug'
 require 'readline'
 
-if __FILE__ == $PROGRAM_NAME
+def start_family_tree_builder
   tree = FamilyTree.new
   processor = FamilyTreeProcessor.new(tree)
 
@@ -47,3 +47,5 @@ if __FILE__ == $PROGRAM_NAME
     end
   end
 end
+
+start_family_tree_builder if __FILE__ == $PROGRAM_NAME
