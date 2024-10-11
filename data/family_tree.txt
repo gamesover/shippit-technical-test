@@ -1,0 +1,45 @@
+ADD_PERSON King_Arthur Male
+ADD_PERSON Queen_Margret Female
+MARRY King_Arthur Queen_Margret
+
+ADD_CHILD Queen_Margret Bill Male
+ADD_CHILD Queen_Margret Charlie Male
+ADD_CHILD Queen_Margret Percy Male
+ADD_CHILD Queen_Margret Ronald Male
+ADD_CHILD Queen_Margret Ginerva Female
+ADD_PERSON Flora Female
+MARRY Bill Flora
+ADD_PERSON Audrey Female
+MARRY Percy Audrey
+ADD_PERSON Helen Female
+MARRY Ronald Helen
+ADD_PERSON Harry Male
+MARRY Ginerva Harry
+ADD_PERSON Sophie Female
+MARRY Edward Sophie
+
+ADD_CHILD Flora Victoire Female
+ADD_CHILD Flora Dominique Female
+ADD_CHILD Flora Louis Male
+ADD_PERSON Ted Male
+MARRY Victoire Ted
+ADD_CHILD Audrey Molly Female
+ADD_CHILD Audrey Lucy Female
+ADD_CHILD Helen Rose Female
+ADD_CHILD Helen Hugo Male
+ADD_PERSON Malfoy Male
+MARRY Malfoy Rose
+ADD_CHILD Ginerva James Male
+ADD_CHILD Ginerva Albus Male
+ADD_CHILD Ginerva Lily Female
+ADD_PERSON Darcy Female
+MARRY Darcy James
+ADD_PERSON Alice Female
+MARRY Alice Albus
+
+ADD_CHILD Victoire Remus Male
+ADD_CHILD Rose Draco Male
+ADD_CHILD Rose Aster Female
+ADD_CHILD Darcy William Male
+ADD_CHILD Alice Ginny Female
+ADD_CHILD Alice Ron Male

@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+
+require_relative 'src/family_tree'
+require_relative 'src/family_tree_processor'
+
+require 'byebug'
+
+if __FILE__ == $0
+  tree = FamilyTree.new
+  processor = FamilyTreeProcessor.new(tree)
+
+  puts <<~WELCOME
+    Welcome to the Family Tree Builder!
+
+    You can use the following commands:
+    - 'build_tree <input_file>': Add relationships from a file.
+    - 'ADD_PERSON <name> <gender>': Add a new person to the family tree.
+    - 'ADD_CHILD <mother_name> <child_name> <gender>': Add a child to a specified mother.
+    - 'MARRY <person1_name> <person2_name>': Establish a marriage between two people.
+    - 'GET_RELATIONSHIP <name> <relationship>': Retrieve a relationship of a person.
+    - 'exit': Quit the program.
+
+  WELCOME
+
+  loop do
+    print '> '
+    input = gets&.chomp&.strip || 'exit'
+    next if input.empty?
+
+    case input.downcase
+    when 'exit'
+      puts "Thank you for using the Family Tree Builder. Goodbye!"
+      break
+    when /^build_tree\s+(\S+)$/
+      input_file = $1
+      if File.exist?(input_file)
+        processor.process_input_file(input_file)
+        puts "\nProcessed #{input_file}"
+      else
+        puts "Input file not found. Please provide a valid file."
+      end
+    else
+      command = input.split(' ')[0]
+      if FamilyTreeProcessor::COMMANDS.value?(command.downcase)
+        processor.process_command_line(input)
+      else
+        puts "Unknown command. Use 'build_tree <input_file>', 'ADD_PERSON', 'ADD_CHILD', 'MARRY', 'GET_RELATIONSHIP', or 'exit'."
+      end
+    end
+  end
+end
