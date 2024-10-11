@@ -2,11 +2,14 @@
 
 source 'https://rubygems.org'
 
+gem 'rb-readline'
+
 group :development, :test do
-  gem 'rubocop', require: false
   gem 'byebug'
+  gem 'rubocop', require: false
 end
 
 group :test do
   gem 'rspec'
+  gem 'rubocop-rspec'
 end

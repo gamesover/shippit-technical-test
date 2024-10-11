@@ -42,7 +42,9 @@ class Person
   end
 
   def siblings
-    @parents.flat_map { |parent| parent.children.reject { |sibling| sibling == self } }.uniq
+    return [] if @parents.empty?
+
+    @parents.flat_map(&:children).uniq.reject { |sibling| sibling == self }
   end
 
   def male?
@@ -53,19 +55,17 @@ class Person
     @gender == FEMALE
   end
 
-  def add_child(child_name, child_gender)
-    stripped_child_name = child_name.to_s.strip
-    raise ArgumentError, 'Invalid child name' if stripped_child_name.empty?
-    raise ArgumentError, 'Invalid child gender' unless [MALE, FEMALE].include?(child_gender.downcase)
-
-    Person.new(stripped_child_name, child_gender).tap do |child|
-      child.parents << self
-      child.parents << @spouse if @spouse
-      @children << child
-    end
+  def add_child(child)
+    @children << child
+    child.parents << self
+    child.parents << @spouse if @spouse && !child.parents.include?(@spouse)
   end
 
   def add_spouse(spouse)
+    raise ArgumentError, 'Cannot marry oneself' if self == spouse
+    raise ArgumentError, "#{spouse.name} is already married" unless spouse.spouse.nil?
+    raise ArgumentError, "#{name} is already married" unless @spouse.nil?
+
     @spouse = spouse
     spouse.spouse = self
   end

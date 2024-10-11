@@ -1,11 +1,14 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
+
 require_relative 'src/family_tree'
 require_relative 'src/family_tree_processor'
 
 require 'byebug'
+require 'readline'
 
-if __FILE__ == $0
+if __FILE__ == $PROGRAM_NAME
   tree = FamilyTree.new
   processor = FamilyTreeProcessor.new(tree)
 
@@ -24,28 +27,23 @@ if __FILE__ == $0
 
   loop do
     print '> '
-    input = gets&.chomp&.strip || 'exit'
+    input = Readline.readline('> ', true)&.strip || 'exit'
     next if input.empty?
 
-    case input.downcase
+    case input.strip.downcase
     when 'exit'
-      puts "Thank you for using the Family Tree Builder. Goodbye!"
+      puts 'Thank you for using the Family Tree Builder. Goodbye!'
       break
     when /^build_tree\s+(\S+)$/
-      input_file = $1
+      input_file = Regexp.last_match(1)
       if File.exist?(input_file)
         processor.process_input_file(input_file)
         puts "\nProcessed #{input_file}"
       else
-        puts "Input file not found. Please provide a valid file."
+        puts 'Input file not found. Please provide a valid file.'
       end
     else
-      command = input.split(' ')[0]
-      if FamilyTreeProcessor::COMMANDS.value?(command.downcase)
-        processor.process_command_line(input)
-      else
-        puts "Unknown command. Use 'build_tree <input_file>', 'ADD_PERSON', 'ADD_CHILD', 'MARRY', 'GET_RELATIONSHIP', or 'exit'."
-      end
+      processor.process_command_line(input)
     end
   end
 end
